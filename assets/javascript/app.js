@@ -14,11 +14,24 @@
 // called "topics". The user adds their term to this array of 
 // strings.
 
-// BUILD
+// REQUIREMENTS TO SATISFY ASSIGNMENT
 // 1. Create HTML DONE
 // 2. Create topics array and function for creating buttons DONE
 // 3. Load images from API from clicked buttons DONE
-// 4. toggle animation when clicked
+// 4. toggle animation when clicked DONE
+// 5. allow user to add custom topic DONE
+// 6. perform search from custom button DONE
+
+// PERSONAL FEATURES TO ADD
+// 1. A clear field button
+// 2. Error handling if user enters nothing
+// 3. Add and understand the trim value features for form submission
+// 4. Make it look good, use bootstrap put the user form inline with buttons
+// 5. See if can add function where multiple clicks on a button load successive images
+
+
+
+
 $(document).ready(function() {
 	
 ////// VARIABLES //////
