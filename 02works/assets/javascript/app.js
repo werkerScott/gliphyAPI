@@ -20,7 +20,7 @@
 // 3. Load images from API from clicked buttons DONE
 // 4. toggle animation when clicked DONE
 // 5. allow user to add custom topic DONE
-
+// 6. perform search from custom button DONE
 
 // PERSONAL FEATURES TO ADD
 // 1. A clear field button
@@ -42,9 +42,7 @@ $(document).ready(function() {
 
 ////// METHODS //////
 	app = {
-		create_buttons: function() {
-			buttonSection.empty();
-
+		create_initalButtons: function() {
 			for (var i=0; i<topics.length; i++) {
 				var newButton = $("<button>");
 				newButton.addClass("btn_search");
@@ -53,6 +51,16 @@ $(document).ready(function() {
 				newButton.text(topics[i]);
 				buttonSection.append(newButton);
 			}
+		},
+
+		create_newButtons: function(arr) {
+			var newData = arr;
+			var newButton = $("<button>");
+			newButton.addClass("btn_search");
+			newButton.attr("type", "button");
+			newButton.attr("data-topic", newData);
+			newButton.text(newData);
+			buttonSection.append(newButton);
 		},
 
 
@@ -66,7 +74,7 @@ $(document).ready(function() {
 
 ////// RUN GAME //////
 
-	app.create_buttons();
+	app.create_initalButtons();
 
 //// START Query Button Event Listener //// 
 	$(document).on("click", ".btn_search", function() {
@@ -123,23 +131,18 @@ $(document).ready(function() {
 	
     $('#page_userForm').on('submit', function(event) { //use on if jQuery 1.7+
         event.preventDefault();  //prevent form from submitting
-        
         // returns an array
         var data = $("#page_userForm :input").serializeArray();
+        console.log(data);
+        console.log(data[0].value);
         var dataToAdd = data[0].value;
-        // console.log(data);
-        // console.log(data[0].value);
-        
         // returns a string
         // var data = $("#page_userForm :input").serialize();
-        
-        // add to array
+        // console.log(data);
         topics.push(dataToAdd);
-
-        // write to page
-        app.create_buttons();
+        app.create_newButtons(dataToAdd);
 
     });
-//// STOP User Submission Event Listener //// 
+//// START User Submission Event Listener //// 
 
 });
