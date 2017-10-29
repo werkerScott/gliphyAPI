@@ -40,22 +40,9 @@ $(document).ready(function() {
 			}
 		},
 
-		create_newButtons: function(arr) {
-			var newData = arr;
-			var newButton = $("<button>");
-			newButton.addClass("btn_search");
-			newButton.attr("type", "button");
-			newButton.attr("data-topic", newData);
-			newButton.text(newData);
-			buttonSection.append(newButton);
-		},
-
-
 		display_results: function() {
 
 		}
-
-
 	};
 
 
@@ -115,21 +102,7 @@ $(document).ready(function() {
 //// STOP Animation toggle Event Listener //// 
 
 //// START User Submission Event Listener //// 
-	
-    $('#page_userForm').on('submit', function(event) { //use on if jQuery 1.7+
-        event.preventDefault();  //prevent form from submitting
-        // returns an array
-        var data = $("#page_userForm :input").serializeArray();
-        console.log(data);
-        console.log(data[0].value);
-        var dataToAdd = data[0].value;
-        // returns a string
-        // var data = $("#page_userForm :input").serialize();
-        // console.log(data);
-        topics.push(dataToAdd);
-        app.create_newButtons(dataToAdd);
-
-    });
+// Add Code
 //// START User Submission Event Listener //// 
 
 });
