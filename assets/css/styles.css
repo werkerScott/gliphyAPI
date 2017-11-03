@@ -48,11 +48,17 @@ button:active {
 	text-transform: uppercase;
 }
 
-.buttonWrapper, .buttonWrapper #page_buttons, .form_Wrapper, form {
+.button_Wrapper, .button_Wrapper #page_buttons, .form_Wrapper, form {
 	display:inline;
 }
 
-.form_Wrapper{
+form {
+	font-size:12px;	
+	display: inline-block;
+	margin-top: 10px;
+}
+
+.form_Wrapper {
 	border-radius: 8px;
 	border:1px solid #CCCCCC;
 	padding-left: 8px;
@@ -63,7 +69,19 @@ button:active {
 	
 }
 
-form {
-	font-size:12px;
+
+.button_Wrapper {
+	padding-bottom: 20px;
 	
 }
+.button_Wrapper h1 {
+	padding: 15px;
+	font-size:28px;
+	border-bottom: 1px solid #666666;
+}
+
+#page-buttons {
+	padding-top: 10px;
+}
+
+
