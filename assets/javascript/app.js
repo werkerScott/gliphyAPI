@@ -122,7 +122,7 @@ $(document).ready(function() {
 		setup: function() {
 			app.create_buttons();
 			// dynamically resize input field
-			autosizeInput(document.querySelector('#page_userInput'));
+			autosizeInput(document.querySelector('#page_userInput'), { minWidth: true } );
 		}
 	};
 
