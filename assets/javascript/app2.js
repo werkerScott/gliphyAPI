@@ -12,7 +12,8 @@
 // RULES
 // the buttons have to be constructed from an array of strings 
 // called "topics". The user adds their term to this array of 
-// strings.
+// strings. NOTE: It is an array of objects now to handle the 
+// advanced fucntionality of results paging
 
 // REQUIREMENTS TO SATISFY ASSIGNMENT
 // 1. Create HTML DONE
@@ -23,11 +24,10 @@
 
 
 // PERSONAL FEATURES TO ADD
-// 1. clear field
-// 2. Error handling if user enters nothing
-// 3. possible to trim with the serialize?
-// 4. Make it look good, put add topic inline with buttons
-// 5. See if can add function where multiple clicks on a button load successive images
+// 1. clear field DONE
+// 2. Error handling if user enters nothing or spaces DONE
+// 3. Make it look good, put add topic inline with buttons DONE
+// 5. Add results offsets, keep clicking, keep getting new results DONE
 
 
 
@@ -132,9 +132,22 @@ $(document).ready(function() {
 		        app.create_buttons(); 
 	        };
 	        $("#page_userInput").val("");
-	        console.log(topics);
+	        // console.log(topics);
 	        return;
 		},
+
+		set_paging: function(gifTopicArg) {
+				for (var i = 0; i < topics.length; i++) {
+			if (gifTopicArg===topics[i].topic) {
+				topics[i].count = topics[i].count + 10;
+				gifOffset =topics[i].count;
+				// console.log(topics[i]);
+				return gifOffset;
+				};
+			};
+
+		},
+
 		setup: function() {
 			app.create_buttons();
 			// dynamically resize input field
@@ -151,15 +164,8 @@ $(document).ready(function() {
 	$(document).on("click", ".btn_search", function() {
 		// Search term to pass
 		var gifTopic = $(this).attr("data-topic");
-		// doing this to add paging, multiple loads
-		for (var i = 0; i < topics.length; i++) {
-			if (gifTopic===topics[i].topic) {
-				topics[i].count = topics[i].count + 10;
-				gifOffset =topics[i].count;
-				console.log(topics[i]);
-			};
-		};
-
+		// everytime topic clicked, adjust counter to pass offests for results paging
+		app.set_paging(gifTopic);
 		// Pass Query, Get Results, and Display
 		app.display_results(gifTopic, gifOffset);
 
@@ -170,7 +176,6 @@ $(document).ready(function() {
 	$(document).on("click", "img", function() {
 		var state = $(this).attr("data-state");
 		var selected = $(this);
-
 		//pass the state and the object
 		app.toggle_animation(state, selected);
 	});
