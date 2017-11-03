@@ -113,7 +113,7 @@ form {
 }
 @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
 	.wrapper { 
-		width:3200px;
+		width:320px;
 	}
 @media screen and (min-device-width : 480px) and (max-width: 640px) {
 	.wrapper { 
