@@ -36,7 +36,21 @@ $(document).ready(function() {
 	
 ////// GLOBAL VARIABLES //////
 // just for display
-	var topics = ["skunk","beaver","panther","flamingo"];
+	var topics = [
+		{
+			topic: "skunk",
+			count:-1,
+		},
+		{
+			topic: "beaver",
+			count:-1,
+		},
+		{
+			topic: "panther",
+			count:-1,
+		}
+	];
+	var gifOffset;
 	var buttonSection = $("#page_buttons");
 	var resultsSection = $("#page_buttonsResults");
 
@@ -50,16 +64,16 @@ $(document).ready(function() {
 				var newButton = $("<button>");
 				newButton.addClass("btn_search");
 				newButton.attr("type", "button");
-				newButton.attr("data-topic", topics[i]);
-				newButton.text(topics[i]);
+				newButton.attr("data-topic", topics[i].topic);
+				newButton.text(topics[i].topic);
 				buttonSection.append(newButton);
 			}
 		},
 
 
-		display_results: function(arr) {
+		display_results: function(arr, arr2) {
 			var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-	        arr + "&api_key=dc6zaTOxFJmzC&limit=10";
+	        arr + "&offset=" + arr2 + "&api_key=dc6zaTOxFJmzC&limit=10";
 
 	        $.ajax({ url: queryURL, method: "GET" }).done(function(response) {
 	        	var results = response.data;
@@ -106,23 +120,25 @@ $(document).ready(function() {
 	        var data = $("#page_userForm :input").serializeArray();
 	        // trim it and add to the array
 	        var dataToAdd = data[0].value.trim();
+	        var objectToAdd = {topic:dataToAdd, count:-1}
 	        // console.log(data);
 	        // console.log(data[0].value);
 	        // console.log(dataToAdd);
 	        // console.log(dataToAdd.charAt(0));
 	        // add to array
 	        if (dataToAdd !== "")  {
-		        topics.push(dataToAdd);
+		        topics.push(objectToAdd);
 		        // write to page
 		        app.create_buttons(); 
 	        };
 	        $("#page_userInput").val("");
+	        console.log(topics);
 	        return;
 		},
 		setup: function() {
 			app.create_buttons();
 			// dynamically resize input field
-			autosizeInput(document.querySelector('#page_userInput'), { minWidth: true } );`
+			autosizeInput(document.querySelector('#page_userInput'), { minWidth: true } );
 		}
 	};
 
@@ -135,8 +151,17 @@ $(document).ready(function() {
 	$(document).on("click", ".btn_search", function() {
 		// Search term to pass
 		var gifTopic = $(this).attr("data-topic");
+		// doing this to add paging, multiple loads
+		for (var i = 0; i < topics.length; i++) {
+			if (gifTopic===topics[i].topic) {
+				topics[i].count = topics[i].count + 10;
+				gifOffset =topics[i].count;
+				console.log(topics[i]);
+			};
+		};
+
 		// Pass Query, Get Results, and Display
-		app.display_results(gifTopic);
+		app.display_results(gifTopic, gifOffset);
 
 	});
 
@@ -145,6 +170,7 @@ $(document).ready(function() {
 	$(document).on("click", "img", function() {
 		var state = $(this).attr("data-state");
 		var selected = $(this);
+
 		//pass the state and the object
 		app.toggle_animation(state, selected);
 	});
