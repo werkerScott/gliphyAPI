@@ -23,10 +23,10 @@
 
 
 // PERSONAL FEATURES TO ADD
-// 1. clear field
+// 1. A clear field button
 // 2. Error handling if user enters nothing
-// 3. possible to trim with the serialize?
-// 4. Make it look good, put add topic inline with buttons
+// 3. Add and understand the trim value features for form submission
+// 4. Make it look good, use bootstrap put the user form inline with buttons
 // 5. See if can add function where multiple clicks on a button load successive images
 
 
@@ -34,12 +34,11 @@
 
 $(document).ready(function() {
 	
-////// GLOBAL VARIABLES //////
-// just for display
+////// VARIABLES //////
+// look into moving these into object
 	var topics = ["skunk","beaver","panther","flamingo"];
 	var buttonSection = $("#page_buttons");
 	var resultsSection = $("#page_buttonsResults");
-
 
 ////// METHODS //////
 	app = {
@@ -77,58 +76,37 @@ $(document).ready(function() {
 	            	resultImage.attr("data-still", results[i].images.fixed_height_still.url);
 	            	resultImage.attr("data-animate", results[i].images.fixed_height.url);
 	            	resultImage.attr("data-state", "still");
-	 
 	            	// add all the data to the new div which will contain both of these
-	            	
-	            	gifDiv.prepend(resultImage);
 	            	gifDiv.prepend(p);
+	            	gifDiv.prepend(resultImage);
 	            	// now add the new div as the top child in the results div
 	            	resultsSection.prepend(gifDiv);
 	            }
-	      
 
 	        });
 		},
 
-		toggle_animation: function(stateArg, selectedObj) {
-			if (stateArg === "still") {
-				$(selectedObj).attr("src", $(selectedObj).attr("data-animate"));
-				$(selectedObj).attr("data-state", "animate");
-			} else {
-				$(selectedObj).attr("src", $(selectedObj).attr("data-still"));
-				$(selectedObj).attr("data-state", "still");
-			}
-			return;
+		toggle_animation: function() {
+			// to get this to work need to dynamically create a unique ID in the display_resuls function
+			// and pass both the state (arr) and the id (item) to this methid and replace "this"
+			// i like not blowing away results each time which requires a algorithm for creating unique IDs
+	
 		},
 
 		user_addTopic: function() {
-			event.preventDefault();  //prevent form from submitting and refreshing page
-	        // returns an array
-	        var data = $("#page_userForm :input").serializeArray();
-	        var dataToAdd = data[0].value;
-	        // console.log(data);
-	        // console.log(data[0].value);
-	        // add to array
-	        topics.push(dataToAdd);
-	        // write to page
-	        app.create_buttons();
-	        $("#page_userInput").val("");
-
-	        return;
-		},
-		setup: function() {
-			app.create_buttons();
-			// dynamically resize input field
-			autosizeInput(document.querySelector('#page_userInput'));
+		// add user add button function here
+		// leaving for now as it is simple enough as is
 		}
+
+
 	};
 
 
-////// RUN APP //////
-	app.setup();
+////// RUN GAME //////
 
+	app.create_buttons();
 
-//// Query Button Event Listener //// 
+//// START Query Button Event Listener //// 
 	$(document).on("click", ".btn_search", function() {
 		// Search term to pass
 		var gifTopic = $(this).attr("data-topic");
@@ -136,20 +114,50 @@ $(document).ready(function() {
 		app.display_results(gifTopic);
 
 	});
-
+//// END Query Button Event Listener //// 
 	
-//// Animation toggle Event Listener //// 
+//// START Animation toggle Event Listener //// 
+// <img src="" data-still="" data-animate="" data-state="still" class="gif">
 	$(document).on("click", "img", function() {
+		// Capture state of selected item
 		var state = $(this).attr("data-state");
-		var selected = $(this);
-		//pass the state and the object
-		app.toggle_animation(state, selected);
+		// Capture id of selected item (to do)(make below a method)
+		// leave this here for now. very complicated to create unique IDs if not blowing away results each time
+		if (state === "still") {
+			$(this).attr("src", $(this).attr("data-animate"));
+			$(this).attr("data-state", "animate");
+		} else {
+			$(this).attr("src", $(this).attr("data-still"));
+			$(this).attr("data-state", "still");
+		}
+		app.toggle_animation(state);
+
+
+
 	});
+//// END Animation toggle Event Listener //// 
 
+//// START User Submission Event Listener //// 
+	
+    $('#page_userForm').on('submit', function(event) { //use on if jQuery 1.7+
+        event.preventDefault();  //prevent form from submitting and refreshing page
+        
+        // returns an array
+        var data = $("#page_userForm :input").serializeArray();
+        var dataToAdd = data[0].value;
+        // console.log(data);
+        // console.log(data[0].value);
+        
+        // returns a string
+        // var data = $("#page_userForm :input").serialize();
+        
+        // add to array
+        topics.push(dataToAdd);
 
-//// User Submission Event Listener //// 
-    $('#page_userForm').on('submit', function() {
-    	app.user_addTopic();
+        // write to page
+        app.create_buttons();
+
     });
+//// END User Submission Event Listener //// 
 
 });

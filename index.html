@@ -6,30 +6,41 @@
 <!-- css -->
   <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
   <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+
 </head>
 <body>
-	<!-- REGION:User for to add to buttons -->
-	<form id="page_userForm">
-		<label for="page_userInput">Add a topic</label>
-		<input type="text" id="page_userInput" name="userTopic"></input>
-		<input id="page_userSubmit" type="submit" value="Submit"></input>
-	</form>
+	<div class="wrapper">
+		<!-- REGION:User for to add to buttons -->
+		
 
 
-	<!-- REGION:buttonSection -->
-	<div id="page_buttons">
+		<!-- REGION:buttonSection -->
+		<div class="buttonWrapper"> 
+			<div id="page_buttons">
+			</div>
+		<div class="form_Wrapper"> 	
+			<form id="page_userForm">
+				<input type="text" id="page_userInput" name="userTopic" placeholder="Search topic"></input>
+				<input id="page_userSubmit" type="submit" value="ADD"></input>
+			</form>
+		</div>
+		</div>
+
+		<!-- REGION:resultsSection -->
+		
+		<div id="page_buttonsResults">
+		</div>
+
+		
+
+
+	<!-- javascript -->
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://rawgit.com/yuanqing/autosize-input/master/autosize-input.min.js"></script>
+		<script src="assets/javascript/app.js"></script>
 	</div>
 
-	
+    		
 
-	<!-- REGION:resultsSection -->
-	<div id="page_buttonsResults">
-	</div>
-
-
-<!-- javascript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-	<script src="assets/javascript/app.js"></script>
 </body>
 </html>
