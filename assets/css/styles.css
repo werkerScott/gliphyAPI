@@ -78,7 +78,7 @@ form {
 	font-size:12px;	
 	display: inline-block;
 	margin-top: 20px;
-	margin-bottom: 20px;
+	margin-bottom: 16px;
 }
 
 .form_Wrapper {
@@ -94,9 +94,9 @@ form {
 
 
 .button_Wrapper {
-	padding-bottom: 20px;
-	
+	padding-bottom: 10px;
 }
+
 .button_Wrapper h1 {
 	padding: 15px;
 	font-size:28px;
@@ -106,5 +106,6 @@ form {
 #page-buttons {
 	padding-top: 10px;
 }
+
 
 
