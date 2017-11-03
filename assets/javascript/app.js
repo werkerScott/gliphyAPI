@@ -58,7 +58,6 @@ $(document).ready(function() {
 
 
 		display_results: function(arr) {
-		// add search function here
 			var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
 	        arr + "&api_key=dc6zaTOxFJmzC&limit=10";
 
@@ -105,15 +104,19 @@ $(document).ready(function() {
 			event.preventDefault();  //prevent form from submitting and refreshing page
 	        // returns an array
 	        var data = $("#page_userForm :input").serializeArray();
-	        var dataToAdd = data[0].value;
+	        // trim it and add to the array
+	        var dataToAdd = data[0].value.trim();
 	        // console.log(data);
 	        // console.log(data[0].value);
+	        // console.log(dataToAdd);
+	        // console.log(dataToAdd.charAt(0));
 	        // add to array
-	        topics.push(dataToAdd);
-	        // write to page
-	        app.create_buttons();
+	        if (dataToAdd !== "")  {
+		        topics.push(dataToAdd);
+		        // write to page
+		        app.create_buttons(); 
+	        };
 	        $("#page_userInput").val("");
-
 	        return;
 		},
 		setup: function() {
