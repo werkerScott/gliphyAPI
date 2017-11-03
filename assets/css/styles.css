@@ -106,7 +106,7 @@ form {
 #page-buttons {
 	padding-top: 10px;
 }
-@media screen and (max-device-width : 320px) {
+/*@media screen and (max-device-width : 320px) {
 	.wrapper { 
 		width:320px;
 	}
@@ -123,5 +123,5 @@ form {
 @media screen and (max-device-width : 1024px) {
 	.wrapper { 
 		width:760px;
-	}
+	}*/
 
