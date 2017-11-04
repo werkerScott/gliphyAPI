@@ -21,13 +21,16 @@
 // 3. Load images from API from clicked buttons DONE
 // 4. toggle animation when clicked DONE
 // 5. allow user to add custom topic DONE
+// 6. maintain selected state DONE
 
 
 // PERSONAL FEATURES TO ADD
 // 1. clear field DONE
 // 2. Error handling if user enters nothing or spaces DONE
 // 3. Make it look good, put add topic inline with buttons DONE
-// 5. Add results offsets, keep clicking, keep getting new results DONE
+// 4. Add results offsets, keep clicking, keep getting new results DONE
+// 5. If user has clicked through all available results, and nothing is returned, disable the topic button
+// 6. Add remove buttons per topic (time intensive, have to rewrite html constructs)
 
 
 
@@ -98,8 +101,6 @@ $(document).ready(function() {
 	            	// now add the new div as the top child in the results div
 	            	resultsSection.prepend(gifDiv);
 	            }
-	      
-
 	        });
 		},
 
@@ -145,7 +146,6 @@ $(document).ready(function() {
 				return gifOffset;
 				};
 			};
-
 		},
 
 		set_activeState: function(arr) {
