@@ -11,8 +11,8 @@ body {
 }
 
 .wrapper {
-	width:70%;
-	margin:auto;
+	max-width: 600px;
+  	margin: 0 auto;
 	text-align: center;
 }
 
@@ -106,22 +106,33 @@ form {
 #page-buttons {
 	padding-top: 10px;
 }
-/*@media screen and (max-device-width : 320px) {
+
+
+@media screen and (max-device-width : 599px) {
 	.wrapper { 
-		width:320px;
+		max-width:320px;
 	}
 }
-@media screen and (max-device-width : 480px) {
+@media screen and (min-width : 600px) {
 	.wrapper { 
-		width:320px;
+		max-width:600px;
 	}
-@media screen and (max-width: 640px) {
+}
+@media screen and (min-width: 900px) {
 	.wrapper { 
-		width:480px;
+		max-width:900px;
 	}
+}
 
-@media screen and (max-device-width : 1024px) {
+@media screen and (min-width : 1024px) {
 	.wrapper { 
-		width:760px;
-	}*/
+		max-width:1024px;
+	}
+}
+
+@media screen and (min-width : 1024px) {
+	.wrapper { 
+		max-width:1024px;
+	}
+}
 
