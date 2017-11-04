@@ -148,13 +148,6 @@ $(document).ready(function() {
 
 		},
 
-		set_activeState: function(arr) {
-			console.log("i fired");
-			$("button").removeClass("active");
-			$(arr).addClass('active');
-			return;
-		},
-
 		setup: function() {
 			app.create_buttons();
 			// dynamically resize input field
@@ -171,8 +164,6 @@ $(document).ready(function() {
 	$(document).on("click", ".btn_search", function() {
 		// Search term to pass
 		var gifTopic = $(this).attr("data-topic");
-		var selected2 = $(this);
-		app.set_activeState(selected2);
 		// everytime topic clicked, adjust counter to pass offests for results paging
 		app.set_paging(gifTopic);
 		// Pass Query, Get Results, and Display

@@ -12,8 +12,7 @@
 // RULES
 // the buttons have to be constructed from an array of strings 
 // called "topics". The user adds their term to this array of 
-// strings. NOTE: It is an array of objects now to handle the 
-// advanced fucntionality of results paging
+// strings.
 
 // REQUIREMENTS TO SATISFY ASSIGNMENT
 // 1. Create HTML DONE
@@ -24,10 +23,11 @@
 
 
 // PERSONAL FEATURES TO ADD
-// 1. clear field DONE
-// 2. Error handling if user enters nothing or spaces DONE
-// 3. Make it look good, put add topic inline with buttons DONE
-// 5. Add results offsets, keep clicking, keep getting new results DONE
+// 1. clear field
+// 2. Error handling if user enters nothing
+// 3. possible to trim with the serialize?
+// 4. Make it look good, put add topic inline with buttons
+// 5. See if can add function where multiple clicks on a button load successive images
 
 
 
@@ -36,21 +36,7 @@ $(document).ready(function() {
 	
 ////// GLOBAL VARIABLES //////
 // just for display
-	var topics = [
-		{
-			topic: "skunk",
-			count:-1,
-		},
-		{
-			topic: "beaver",
-			count:-1,
-		},
-		{
-			topic: "panther",
-			count:-1,
-		}
-	];
-	var gifOffset;
+	var topics = ["skunk","beaver","panther","flamingo"];
 	var buttonSection = $("#page_buttons");
 	var resultsSection = $("#page_buttonsResults");
 
@@ -64,16 +50,16 @@ $(document).ready(function() {
 				var newButton = $("<button>");
 				newButton.addClass("btn_search");
 				newButton.attr("type", "button");
-				newButton.attr("data-topic", topics[i].topic);
-				newButton.text(topics[i].topic);
+				newButton.attr("data-topic", topics[i]);
+				newButton.text(topics[i]);
 				buttonSection.append(newButton);
 			}
 		},
 
 
-		display_results: function(arr, arr2) {
+		display_results: function(arr) {
 			var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
-	        arr + "&offset=" + arr2 + "&api_key=dc6zaTOxFJmzC&limit=10";
+	        arr + "&api_key=dc6zaTOxFJmzC&limit=10";
 
 	        $.ajax({ url: queryURL, method: "GET" }).done(function(response) {
 	        	var results = response.data;
@@ -120,45 +106,23 @@ $(document).ready(function() {
 	        var data = $("#page_userForm :input").serializeArray();
 	        // trim it and add to the array
 	        var dataToAdd = data[0].value.trim();
-	        var objectToAdd = {topic:dataToAdd, count:-1}
 	        // console.log(data);
 	        // console.log(data[0].value);
 	        // console.log(dataToAdd);
 	        // console.log(dataToAdd.charAt(0));
 	        // add to array
 	        if (dataToAdd !== "")  {
-		        topics.push(objectToAdd);
+		        topics.push(dataToAdd);
 		        // write to page
 		        app.create_buttons(); 
 	        };
 	        $("#page_userInput").val("");
-	        // console.log(topics);
 	        return;
 		},
-
-		set_paging: function(gifTopicArg) {
-				for (var i = 0; i < topics.length; i++) {
-			if (gifTopicArg===topics[i].topic) {
-				topics[i].count = topics[i].count + 10;
-				gifOffset =topics[i].count;
-				// console.log(topics[i]);
-				return gifOffset;
-				};
-			};
-
-		},
-
-		set_activeState: function(arr) {
-			console.log("i fired");
-			$("button").removeClass("active");
-			$(arr).addClass('active');
-			return;
-		},
-
 		setup: function() {
 			app.create_buttons();
 			// dynamically resize input field
-			autosizeInput(document.querySelector('#page_userInput'), { minWidth: true } );
+			autosizeInput(document.querySelector('#page_userInput'), { minWidth: true } );`
 		}
 	};
 
@@ -171,12 +135,8 @@ $(document).ready(function() {
 	$(document).on("click", ".btn_search", function() {
 		// Search term to pass
 		var gifTopic = $(this).attr("data-topic");
-		var selected2 = $(this);
-		app.set_activeState(selected2);
-		// everytime topic clicked, adjust counter to pass offests for results paging
-		app.set_paging(gifTopic);
 		// Pass Query, Get Results, and Display
-		app.display_results(gifTopic, gifOffset);
+		app.display_results(gifTopic);
 
 	});
 
